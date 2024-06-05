@@ -148,6 +148,13 @@ async function run() {
       const result = await applicationCollection.insertOne(user);
       res.send(result);
     });
+    //apply-job-filter
+    app.get("/application/:email", async (req, res) => {
+      const email = req.params.email;
+      const filter = { email: email };
+      const result = await applicationCollection.find(filter).toArray();
+      res.send(result);
+    });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
