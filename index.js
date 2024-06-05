@@ -51,6 +51,7 @@ async function run() {
     //user-collection
     const userCollection = client.db("jobDB").collection("users");
     const jobsCollection = client.db("jobDB").collection("jobs");
+    const applicationCollection = client.db("jobDB").collection("applications");
 
     //user-get
     app.get("/users/:email", async (req, res) => {
@@ -139,6 +140,12 @@ async function run() {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) };
       const result = await jobsCollection.deleteOne(filter);
+      res.send(result);
+    });
+    //application-collection-api
+    app.post("/application", async (req, res) => {
+      const user = req.body;
+      const result = await applicationCollection.insertOne(user);
       res.send(result);
     });
     // Send a ping to confirm a successful connection
