@@ -53,6 +53,11 @@ async function run() {
     const jobsCollection = client.db("jobDB").collection("jobs");
     const applicationCollection = client.db("jobDB").collection("applications");
 
+    //all-user
+    app.get("/users", async (req, res) => {
+      const result = await userCollection.find().toArray();
+      res.send(result);
+    });
     //user-get
     app.get("/users/:email", async (req, res) => {
       const email = req.params.email;
